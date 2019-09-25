@@ -24,3 +24,129 @@ cat /etc/profile.d/history.sh
 sudo rm /etc/profile.d/history.sh
 cd /etc && sudo git status
 cd /etc && sudo git checkout -- profile.d/history.sh
+
+echo -e "dev\ngoogle\nproc\nrun\nsys\ntmp" | sudo tee /.gitignore
+sudo cp -v lpic1/gitignore /.gitignore
+cd / && sudo git init && sudo git add --all . && sudo git commit -m "Initial commit"
+
+ip=$( curl checkip.dyn.com 2> /dev/null | awk -F "Current IP Address: " '{ print $2 }' | cut -d "<" -f 1 )
+echo $ip
+
+fake_ip=$( host checkip.dyn.com | awk -F "has address " '/address/{ print $2 }' | grep -m 1 . )
+echo "$fake_ip www.upm.es" | sudo tee -a /etc/hosts
+curl www.upm.es
+
+scp test.original test.copia
+scp 128.3.45.25:test.original test.copia
+scp test.copia 128.3.45.25:test.original
+scp foo.myname.com:test.original test.copia
+scp test.copia foo.myname.com:test.original
+cat .ssh/id_rsa.pub
+id
+
+cat .ssh/authorized_keys
+stat .ssh/authorized_keys
+ln .ssh/authorized_keys otro
+stat otro
+ln -s .ssh/authorized_keys otro-simbolico
+stat otro-simbolico
+mv otro-simbolico .otro
+stat .otro
+
+pwd
+stat /home/ec2-user/
+stat .
+stat /home/ec2-user/.
+stat /home/ec2-user/.ssh/..
+mkdir subcarpeta
+stat /home/ec2-user/
+stat subcarpeta/..
+
+openssl rand -base64 32 | tr -d '+=/' | fold -w 16 | head -n 1
+https://en.wikipedia.org/wiki/Password_strength
+a7yhUhs098 -> 62^10 = 2^E
+62^L = 2^E
+E = 6 * L
+
+sudo grep ec2-user /etc/shadow
+sudo passwd ec2-user
+sudo grep ec2-user /etc/shadow
+touch /etc/shadow
+ls -l /bin/passwd
+stat /bin/passwd
+sudo chmod -s /bin/passwd
+stat /bin/passwd
+strace passwd
+sudo chmod +s /bin/passwd
+
+sudo find / -perm /g+s 2> /dev/null | grep -v /home | grep -v /usr/local/lib
+stat /usr/local/etc/
+file /usr/local/etc/
+grep staff /etc/group
+id
+sudo usermod -aG staff ec2-user
+
+ls -l /dev/stdin /dev/stdout /dev/stderr /dev/sda /dev/sda1 /dev/null /dev/zero
+
+sudo dd if=imagen.iso of=/dev/usb
+sudo dd if=/dev/zero of=/dev/usb
+sudo lsblk
+sudo dd if=/dev/sda of=_dev_sda_1b count=1
+strings _dev_sda_1b
+sudo od _dev_sda_1b
+sudo od -taz _dev_sda_1b
+sudo fdisk -l /dev/sda
+sudo dd if=/dev/zero of=/dev/sda count=1
+sudo fdisk -l /dev/sda
+sudo dd if=_dev_sda_1b of=/dev/sda count=1
+sudo fdisk -l /dev/sda
+
+https://en.wikipedia.org/wiki/Page_table
+https://en.wikipedia.org/wiki/Thread_safety
+https://en.wikipedia.org/wiki/Paging
+https://en.wikipedia.org/wiki/Out_of_memory
+https://en.wikipedia.org/wiki/Vmstat
+
+nice top
+sudo nice -n -19 top
+free
+vmstat
+vmstat 1
+set -x && free && sudo swapoff -av && free && set +x
+
+sudo apt-get purge nano joe -y
+~$ crontab -e
+no crontab for sebastian_colomar - using an empty one
+crontab: installing new crontab
+~$ crontab -l
+# 0 5 * * 1 tar -zcf /var/backups/home.tgz /home/
+#
+# For more information see the manual pages of crontab(5) and cron(8)
+#
+# m h  dom mon dow   command
+0 1 * * * sudo apt-get update && sudo apt-get upgrade -y && sudo init 6
+*/10 10-11 * * * ( date && free && top -b -n 1 && vmstat 1 10 ) 1>> /tmp/monitoring
+0 11 * * 4 tar cfz /tmp/home.tgz /home/sebastian_colomar
+0 12 * * 3 tar cfz /tmp/home.tgz /home/sebastian_colomar
+
+ls -l /tmp/monitoring
+watch !!
+
+service cron status
+sudo service cron start
+sudo systemctl enable cron
+
+https://www.lpi.org/our-certifications/exam-101-objectives
+https://www.lpi.org/our-certifications/exam-102-objectives
+
+df
+df -i
+du
+du --inodes
+sudo du | sort -k 1 -n | tail
+sudo du --inodes | sort -k 1 -n | tail
+
+
+https://en.wikipedia.org/wiki/BusyBox
+
+
